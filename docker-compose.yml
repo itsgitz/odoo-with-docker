@@ -1,0 +1,51 @@
+version: '3.9'
+name: odoo
+services:
+  odoo:
+    image: odoo:15.0
+    depends_on:
+      - db
+    networks:
+      - odoo-network
+    ports:
+      - 8069:8069
+    restart: always
+    volumes:
+      - type: volume
+        source: odoo-data
+        target: /var/lib/odoo/
+      - type: volume
+        source: odoo-log
+        target: /var/log/odoo/
+      - type: bind
+        source: ./odoo-conf/
+        target: /etc/odoo/
+      - type: bind
+        source: ./odoo-addons/
+        target: /mnt/extra-addons/ 
+
+  db:
+    image: postgres:13
+    env_file:
+      - .env
+    networks:
+      - odoo-network
+    ports:
+      - mode: ingress
+        target: 5432
+        published: 5432
+    restart: always
+    volumes:
+      - type: volume
+        source: postgres-db
+        target: /var/lib/postgresql
+
+volumes:
+  odoo-log:
+  odoo-data:
+  postgres-db:
+
+networks:
+  odoo-network:
+    name: odoo-network
+    driver: bridge
