@@ -9,3 +9,5 @@ stop:
 restart: stop run
 logs:
 	docker compose logs -f --tail 20
+psql:
+	docker compose exec -it db psql -U odoo
