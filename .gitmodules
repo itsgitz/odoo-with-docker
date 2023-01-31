@@ -1,0 +1,3 @@
+[submodule "odoo-addons/sinarkencana"]
+	path = odoo-addons/sinarkencana
+	url = https://github.com/Zhupy17/Sinarkencana.git

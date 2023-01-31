@@ -11,3 +11,5 @@ logs:
 	docker compose logs -f --tail 20
 psql:
 	docker compose exec -it db psql -U odoo
+bash:
+	docker compose exec -it odoo bash
